@@ -34,7 +34,7 @@ Mullinax Ford salespeople get **50+ leads/day** across:
 | `search_by_intent` | Semantic search ("payment under $600") |
 | `generate_followup` | Mullinax-style sales scripts |
 
-## 🎬 **Live Demo** (90 seconds)
+## **Live Demo** (90 seconds)
 
 ```
 1. docker run vcon-mcp (10s)
