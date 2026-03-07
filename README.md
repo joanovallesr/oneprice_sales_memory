@@ -1,6 +1,6 @@
-# Mullinax Sales Memory - vCon MCP Sales Assistant
+# OnePrice Sales Memory - vCon MCP Sales Assistant
 
-**VCONIC TADHack Entry** | Built by Joan Ovalles, Mullinax Ford Salesperson
+**VCONIC TADHack Entry** | Built by Joan Ovalles, OnePrice Salesperson
 
 Turns scattered car leads (web forms, calls, showroom) into **prioritized action items** using **VCON MCP** + AI analysis.
 
@@ -10,7 +10,7 @@ Turns scattered car leads (web forms, calls, showroom) into **prioritized action
 
 ## **Problem**
 
-Mullinax Ford salespeople get **50+ leads/day** across:
+OnePrice salespeople get **40+ leads/day** across:
 - Web forms (Autotrader, Cars.com)
 - Phone calls  
 - Showroom walk-ins
@@ -26,21 +26,21 @@ Mullinax Ford salespeople get **50+ leads/day** across:
 **7 MCP Tools**:
 | Tool | Purpose |
 |------|---------|
-| `create_mullinax_lead_vcon` | New lead vCon (web/phone/showroom) |
+| `create_oneprice_lead_vcon` | New lead vCon (web/phone/showroom) |
 | `analyze_and_tag_vcon` | AI classification (funnel/urgency/tags) |
 | `add_followup_vcon` | Record follow-up call/note |
 | `get_hot_leads` | Hot leads needing follow-up |
 | `get_missed_leads` | New leads with no follow-up |
 | `search_by_intent` | Semantic search ("payment under $600") |
-| `generate_followup` | Mullinax-style sales scripts |
+| `generate_followup` | OnePrice-style sales scripts |
 
 ## **Live Demo** (90 seconds)
 
 ```
 1. docker run vcon-mcp (10s)
-2. python mullinax_sales_server.py (5s)
+2. python oneprice_sales_server.py (5s)
 3. Claude/Cursor:
-   create_mullinax_lead_vcon("Jane", "Explorer $600/mo", "web_lead")
+   create_oneprice_lead_vcon("Jane", "Explorer $600/mo", "web_lead")
    analyze_and_tag_vcon("uuid") → {"urgency": "hot_lead"}
    get_hot_leads(2) → [{"name": "Jane", "no_followup": true}]
    generate_followup("Jane") → "Hi Jane, Explorer $599 OTD..."
@@ -52,8 +52,8 @@ Mullinax Ford salespeople get **50+ leads/day** across:
 
 ```bash
 # 1. Clone
-git clone https://github.com/joanovalles/mullinax-sales-memory
-cd mullinax-sales-memory
+git clone https://github.com/joanovalles/oneprice_sales_memory
+cd oneprice_sales_memory
 
 # 2. Install
 pip install -r requirements.txt
@@ -66,7 +66,7 @@ cp .env.example .env
 docker run -d -p 3000:3000 public.ecr.aws/r4g1k2s3/vcon-dev/vcon-mcp:main
 
 # 5. Run MCP server
-source .env && python mullinax_sales_server.py
+source .env && python oneprice_sales_server.py
 ```
 
 **Connect to Claude Desktop/Cursor/ChatGPT** (see `~/.cursor/mcp.json` example).
@@ -74,7 +74,7 @@ source .env && python mullinax_sales_server.py
 ## **Architecture**
 
 ```
-Claude/Cursor ── MCP ── mullinax_sales_server.py ── vcon_client.py ── VCON MCP
+Claude/Cursor ── MCP ── oneprice_sales_server.py ── vcon_client.py ── VCON MCP
                                                       │
                                                       └── OpenAI (analyze/generate)
 ```
@@ -94,7 +94,7 @@ Analysis: {"vehicle_interest": "Explorer", "timeline": "2_weeks"}
 ## **TADHack Highlights**
 
 - **Sponsor APIs**: Full VCON MCP (CRUD, search, tags, analysis)
-- **Real use case**: Mullinax Ford lead chaos → AI-powered pipeline
+- **Real use case**: Real dealership lead chaos → AI-powered pipeline
 - **Production code**: Types, tests, docs, error handling
 - **Multi-client**: Works with Claude, Cursor, ChatGPT MCP
 - **Scalable**: Add Supabase → persistent vCons across dealerships
@@ -102,12 +102,12 @@ Analysis: {"vehicle_interest": "Explorer", "timeline": "2_weeks"}
 ## **Files**
 
 ```
-├── mullinax_sales_server.py  # 7 MCP tools
+├── oneprice_sales_server.py  # 7 MCP tools
 ├── vcon_client.py           # VCON MCP wrapper
 ├── analysis.py              # OpenAI classification/scripts
 ├── models.py                # Pydantic types
 ├── config.py                # Env loading
-├── sample_data/             # Real Mullinax leads
+├── sample_data/             # Real leads
 ├── requirements.txt         # pip install
 └── README.md                # This file
 ```
