@@ -52,7 +52,7 @@ OnePrice salespeople get **40+ leads/day** across:
 
 ```bash
 # 1. Clone
-git clone https://github.com/joanovalles/oneprice-sales-memory
+git clone https://github.com/joanovalles/oneprice_sales_memory
 cd oneprice_sales_memory
 
 # 2. Install
