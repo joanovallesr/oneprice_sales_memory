@@ -1,3 +1,4 @@
+```markdown
 # Mullinax Sales Memory - vCon MCP Sales Assistant
 
 **VCONIC TADHack Entry** | Built by Joan Ovalles, Mullinax Ford Salesperson
@@ -26,17 +27,17 @@ Mullinax Ford salespeople get **50+ leads/day** across:
 **7 MCP Tools**:
 | Tool | Purpose |
 |------|---------|
-| create_mullinax_lead_vcon | New lead vCon (web/phone/showroom) |
-| analyze_and_tag_vcon | AI classification (funnel/urgency/tags) |
-| add_followup_vcon | Record follow-up call/note |
-| get_hot_leads | Hot leads needing follow-up |
-| get_missed_leads | New leads with no follow-up |
-| search_by_intent | Semantic search ("payment under $600") |
-| generate_followup | Mullinax-style sales scripts |
+| `create_mullinax_lead_vcon` | New lead vCon (web/phone/showroom) |
+| `analyze_and_tag_vcon` | AI classification (funnel/urgency/tags) |
+| `add_followup_vcon` | Record follow-up call/note |
+| `get_hot_leads` | Hot leads needing follow-up |
+| `get_missed_leads` | New leads with no follow-up |
+| `search_by_intent` | Semantic search ("payment under $600") |
+| `generate_followup` | Mullinax-style sales scripts |
 
-```
 ## 🎬 **Live Demo** (90 seconds)
 
+```
 1. docker run vcon-mcp (10s)
 2. python mullinax_sales_server.py (5s)
 3. Claude/Cursor:
@@ -45,12 +46,12 @@ Mullinax Ford salespeople get **50+ leads/day** across:
    get_hot_leads(2) → [{"name": "Jane", "no_followup": true}]
    generate_followup("Jane") → "Hi Jane, Explorer $599 OTD..."
 ```
-```
+
 **[Demo Video](https://github.com/user-uploads/demo.mp4)**
-```
+
 ## **Quick Start**
 
-bash
+```bash
 # 1. Clone
 git clone https://github.com/joanovalles/mullinax-sales-memory
 cd mullinax-sales-memory
@@ -67,26 +68,31 @@ docker run -d -p 3000:3000 public.ecr.aws/r4g1k2s3/vcon-dev/vcon-mcp:main
 
 # 5. Run MCP server
 source .env && python mullinax_sales_server.py
+```
 
-**Connect to Claude Desktop/Cursor/ChatGPT** (see ~/.cursor/mcp.json example).
+**Connect to Claude Desktop/Cursor/ChatGPT** (see `~/.cursor/mcp.json` example).
 
 ## **Architecture**
 
+```
 Claude/Cursor ── MCP ── mullinax_sales_server.py ── vcon_client.py ── VCON MCP
                                                       │
                                                       └── OpenAI (analyze/generate)
+```
 
 - **Clean separation**: MCP server → VCON wrapper → OpenAI analysis
 - **Production-ready**: Pydantic types, async, error handling
-- **vCon-native**: create_vcon_from_template, add_analysis, add_tag, hybrid search
+- **vCon-native**: `create_vcon_from_template`, `add_analysis`, `add_tag`, hybrid search
 
-## 📊 **vCon Schema (Car Sales)**
+## **vCon Schema (Car Sales)**
 
+```
 Parties: [{"role": "customer", "name": "Jane"}, {"role": "agent", "name": "Joan"}]
 Tags: funnel_stage=new_lead, urgency=hot_lead, payment_sensitive=true
 Analysis: {"vehicle_interest": "Explorer", "timeline": "2_weeks"}
+```
 
-## 🎖️ **TADHack Highlights**
+## **TADHack Highlights**
 
 - **Sponsor APIs**: Full VCON MCP (CRUD, search, tags, analysis)
 - **Real use case**: Mullinax Ford lead chaos → AI-powered pipeline
@@ -96,6 +102,7 @@ Analysis: {"vehicle_interest": "Explorer", "timeline": "2_weeks"}
 
 ## **Files**
 
+```
 ├── mullinax_sales_server.py  # 7 MCP tools
 ├── vcon_client.py           # VCON MCP wrapper
 ├── analysis.py              # OpenAI classification/scripts
@@ -104,6 +111,7 @@ Analysis: {"vehicle_interest": "Explorer", "timeline": "2_weeks"}
 ├── sample_data/             # Real Mullinax leads
 ├── requirements.txt         # pip install
 └── README.md                # This file
+```
 
 ## **Acknowledgments**
 
@@ -111,8 +119,11 @@ Analysis: {"vehicle_interest": "Explorer", "timeline": "2_weeks"}
 - **FastMCP** - Python MCP framework  
 - **OpenAI** - Lead analysis + follow-up generation
 
-**Built for TADHack March 7-8, 2026** by Joan Ovalles
+**Built for TADHack March 7-8, 2026** by Joan Ovalles (joanovalles.com)
 
 ---
+
+**Star this repo** | **Follow @joanovallesr**
+```
 
 **Star this repo** | **Follow @joanovallesr
