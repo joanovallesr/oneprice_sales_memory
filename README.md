@@ -1,6 +1,6 @@
 # OnePrice Sales Memory - vCon MCP Sales Assistant
 
-**VCONIC TADHack Entry** | Built by Joan Ovalles, Mullinax Ford Salesperson
+**VCONIC TADHack Entry** | Built by Joan Ovalles, OnePrice Salesperson
 
 Turns scattered car leads (web forms, calls, showroom) into **prioritized action items** using **VCON MCP** + AI analysis.
 
@@ -32,13 +32,13 @@ OnePrice salespeople get **40+ leads/day** across:
 | `get_hot_leads` | Hot leads needing follow-up |
 | `get_missed_leads` | New leads with no follow-up |
 | `search_by_intent` | Semantic search ("payment under $600") |
-| `generate_followup` | Mullinax-style sales scripts |
+| `generate_followup` | OnePrice-style sales scripts |
 
 ## **Live Demo** (90 seconds)
 
 ```
 1. docker run vcon-mcp (10s)
-2. python mullinax_sales_server.py (5s)
+2. python oneprice_sales_server.py (5s)
 3. Claude/Cursor:
    create_oneprice_lead_vcon("Jane", "Explorer $600/mo", "web_lead")
    analyze_and_tag_vcon("uuid") → {"urgency": "hot_lead"}
@@ -52,8 +52,8 @@ OnePrice salespeople get **40+ leads/day** across:
 
 ```bash
 # 1. Clone
-git clone https://github.com/joanovalles/mullinax-sales-memory
-cd mullinax-sales-memory
+git clone https://github.com/joanovalles/oneprice-sales-memory
+cd oneprice_sales_memory
 
 # 2. Install
 pip install -r requirements.txt
@@ -66,7 +66,7 @@ cp .env.example .env
 docker run -d -p 3000:3000 public.ecr.aws/r4g1k2s3/vcon-dev/vcon-mcp:main
 
 # 5. Run MCP server
-source .env && python mullinax_sales_server.py
+source .env && python oneprice_sales_server.py
 ```
 
 **Connect to Claude Desktop/Cursor/ChatGPT** (see `~/.cursor/mcp.json` example).
@@ -74,7 +74,7 @@ source .env && python mullinax_sales_server.py
 ## **Architecture**
 
 ```
-Claude/Cursor ── MCP ── mullinax_sales_server.py ── vcon_client.py ── VCON MCP
+Claude/Cursor ── MCP ── oneprice_sales_server.py ── vcon_client.py ── VCON MCP
                                                       │
                                                       └── OpenAI (analyze/generate)
 ```
@@ -107,7 +107,7 @@ Analysis: {"vehicle_interest": "Explorer", "timeline": "2_weeks"}
 ├── analysis.py              # OpenAI classification/scripts
 ├── models.py                # Pydantic types
 ├── config.py                # Env loading
-├── sample_data/             # Real Mullinax leads
+├── sample_data/             # Real leads
 ├── requirements.txt         # pip install
 └── README.md                # This file
 ```
