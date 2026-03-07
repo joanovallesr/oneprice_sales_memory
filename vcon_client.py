@@ -16,14 +16,14 @@ def _vcon_parties(customer_name: str) -> list[dict]:
     """Build parties list: [customer, salesperson]. Party 0 = customer, 1 = agent."""
     return [
         {"name": customer_name, "role": "customer"},
-        {"name": config.MULLINAX_SALESPERSON_NAME, "role": "agent"},
+        {"name": config.SALESPERSON_NAME, "role": "agent"},
     ]
 
 
-def _mullinax_subject(customer_name: str, source: str) -> str:
-    """Subject line: Mullinax Lead – {customer_name} – {source} – {date}."""
+def _oneprice_subject(customer_name: str, source: str) -> str:
+    """Subject line: OnePrice Lead – {customer_name} – {source} – {date}."""
     date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    return f"Mullinax Lead – {customer_name} – {source} – {date}"
+    return f"OnePrice Lead – {customer_name} – {source} – {date}"
 
 
 @asynccontextmanager
@@ -71,11 +71,11 @@ async def create_lead_vcon(
     notes: str,
 ) -> dict:
     """
-    Create a new vCon for a Mullinax lead. Uses create_vcon_from_template,
+    Create a new vCon for a OnePrice lead. Uses create_vcon_from_template,
     adds one text dialog, then tags (customer_name, source, funnel_stage, vehicle_interest).
     """
     template = "phone_call" if source == "phone_call" else "chat_conversation" if source == "web_lead" else "custom"
-    subject = _mullinax_subject(customer_name, source)
+    subject = _oneprice_subject(customer_name, source)
     parties = _vcon_parties(customer_name)
 
     out = await _call(
@@ -124,7 +124,7 @@ async def add_followup_vcon(client: Client, customer_name: str, notes: str) -> d
     Create a new vCon for a follow-up (Option A: one vCon per event). Tagged
     source=followup_call and customer_name.
     """
-    subject = f"Mullinax Follow-up – {customer_name} – {datetime.now(timezone.utc).strftime('%Y-%m-%d')}"
+    subject = f"OnePrice Follow-up – {customer_name} – {datetime.now(timezone.utc).strftime('%Y-%m-%d')}"
     parties = _vcon_parties(customer_name)
 
     out = await _call(
@@ -193,7 +193,7 @@ async def add_analysis(
     product: Optional[str] = None,
     schema_id: Optional[str] = None,
 ) -> dict:
-    """Add an analysis object to a vCon (e.g. mullinax_lead_summary)."""
+    """Add an analysis object to a vCon (e.g. oneprice_lead_summary)."""
     payload = {
         "vcon_uuid": vcon_uuid,
         "analysis": {
