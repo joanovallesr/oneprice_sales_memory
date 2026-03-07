@@ -1,4 +1,3 @@
-```markdown
 # Mullinax Sales Memory - vCon MCP Sales Assistant
 
 **VCONIC TADHack Entry** | Built by Joan Ovalles, Mullinax Ford Salesperson
