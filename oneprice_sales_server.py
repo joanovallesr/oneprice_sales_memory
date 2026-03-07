@@ -1,5 +1,5 @@
 """
-Mullinax Sales Memory – FastMCP server exposing 6 tools that sit on top of VCON MCP.
+OnePrice Sales Memory – FastMCP server exposing 6 tools that sit on top of VCON MCP.
 Entrypoint: run this module to start the MCP server (STDIO).
 """
 # pyright: reportMissingImports=false
@@ -23,18 +23,18 @@ from vcon_client import (
     search_vcons_hybrid,
 )
 
-mcp = FastMCP(name="mullinax_sales_memory")
+mcp = FastMCP(name="oneprice_sales_memory")
 
 
 @mcp.tool()
-async def create_mullinax_lead_vcon(
+async def create_oneprice_lead_vcon(
     customer_name: str,
     notes: str,
     source: str,
     vehicle_interest: Optional[str] = None,
 ) -> dict:
     """
-    Create a new vCon for a Mullinax lead (web, showroom, or phone).
+    Create a new vCon for a OnePrice lead (web, showroom, or phone).
     Uses VCON MCP create_vcon_from_template, adds one dialog, and tags (customer_name, source, funnel_stage, vehicle_interest).
     """
     if source not in ("web_lead", "phone_call", "showroom"):
@@ -81,12 +81,12 @@ async def analyze_and_tag_vcon(vcon_id: str) -> dict:
         await vcon_add_analysis(
             client,
             vcon_id,
-            type_name="mullinax_lead_summary",
-            vendor="MullinaxSalesMemory",
+            type_name="oneprice_lead_summary",
+            vendor="OnePriceSalesMemory",
             body=body,
             encoding="json",
             product="openai-gpt-4o-mini",
-            schema_id="mullinax-v1",
+            schema_id="oneprice-v1",
         )
         tags_added = []
         for key, value in result.model_dump(exclude_none=True).items():
@@ -224,7 +224,7 @@ async def get_missed_leads(days: int = 2) -> dict:
 @mcp.tool()
 async def generate_followup(customer_name: str) -> dict:
     """
-    Generate a Mullinax-style (no-haggle, one-price, friendly) follow-up message. Finds all vCons for this customer, builds context, and uses OpenAI to produce a short script.
+    Generate a OnePrice-style (no-haggle, one-price, friendly) follow-up message. Finds all vCons for this customer, builds context, and uses OpenAI to produce a short script.
     """
     async with get_vcon_client() as client:
         tag_out = await search_by_tags(client, {"customer_name": customer_name}, limit=20)

@@ -28,4 +28,4 @@ def get_vcon_stdio_args() -> List[str]:
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 
 # Optional: name used as salesperson/agent in vCon parties
-MULLINAX_SALESPERSON_NAME = os.getenv("MULLINAX_SALESPERSON_NAME", "Mullinax Sales")
+SALESPERSON_NAME = os.getenv("SALESPERSON_NAME", "Mullinax Sales")
