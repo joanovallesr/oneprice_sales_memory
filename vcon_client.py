@@ -38,13 +38,25 @@ async def get_vcon_client():
         async with Client(transport) as client:
             yield client
 
-
 async def _call(client: Client, tool: str, arguments: dict) -> dict:
     """Call VCON MCP tool; return result or raise with error message."""
     from fastmcp.exceptions import ToolError  # pyright: ignore[reportMissingImports]
+    import json  # Added json import
     try:
         result = await client.call_tool(tool, arguments, raise_on_error=True)
-        return result.data if result.data is not None else {"content": result.content}
+        
+        # If the server returned clean data, use it
+        if result.data is not None:
+            return result.data
+            
+        # If the server returned a JSON string inside a TextContent block, parse it!
+        if result.content and isinstance(result.content, list) and hasattr(result.content[0], "text"):
+            try:
+                return json.loads(result.content[0].text)
+            except json.JSONDecodeError:
+                pass
+                
+        return {"content": result.content}
     except ToolError as e:
         return {"success": False, "error": str(e)}
     except Exception as e:
