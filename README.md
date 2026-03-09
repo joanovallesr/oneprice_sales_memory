@@ -109,4 +109,3 @@ Analysis: {"vehicle_interest": "Explorer", "timeline": "2_weeks"}
 ---
 
 **Star this repo** | **Follow @joanovallesr**
-```
