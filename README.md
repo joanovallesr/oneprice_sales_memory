@@ -34,20 +34,6 @@ OnePrice salespeople get **40+ leads/day** across:
 | `search_by_intent` | Semantic search ("payment under $600") |
 | `generate_followup` | OnePrice-style sales scripts |
 
-## **Live Demo** (90 seconds)
-
-```
-1. docker run vcon-mcp (10s)
-2. python oneprice_sales_server.py (5s)
-3. Claude/Cursor:
-   create_oneprice_lead_vcon("Jane", "Explorer $600/mo", "web_lead")
-   analyze_and_tag_vcon("uuid") → {"urgency": "hot_lead"}
-   get_hot_leads(2) → [{"name": "Jane", "no_followup": true}]
-   generate_followup("Jane") → "Hi Jane, Explorer $599 OTD..."
-```
-
-**[Demo Video](https://github.com/user-uploads/demo.mp4)**
-
 ## **Quick Start**
 
 ```bash
